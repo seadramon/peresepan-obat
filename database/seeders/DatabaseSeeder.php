@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
             AdminSeeder::class,
             DokterSeeder::class,
             ApotekerSeeder::class,
+            TandaVitalSeeder::class,
         ]);
     }
 }

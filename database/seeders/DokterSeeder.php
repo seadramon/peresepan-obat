@@ -21,7 +21,7 @@ class DokterSeeder extends Seeder
 
             $user = new User([
 	        	'name' => 'dr.Tirta',
-	        	'email' => 'tirta@rsam.com',
+	        	'email' => 'tirta@gmail.com',
 	        	'password' => Hash::make('dokter123')
 	      	]);
 

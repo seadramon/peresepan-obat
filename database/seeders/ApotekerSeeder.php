@@ -21,7 +21,7 @@ class ApotekerSeeder extends Seeder
 
             $user = new User([
 	        	'name' => 'Anggun',
-	        	'email' => 'anggun@rsam.com',
+	        	'email' => 'anggun@gmail.com',
 	        	'password' => Hash::make('apoteker123')
 	      	]);
 

@@ -49,7 +49,8 @@
 		  	<thead>
 				<tr class="table-primary">
 			  		<th>Nama Pasien</th>
-			  		<th>No HP</th>
+			  		<th>Nama Dokter</th>
+			  		<th>Spesialis</th>
 			  		<th>Tanngal Periksa</th>
 			  		<th>Status</th>
 			  		<th>Action</th>
@@ -60,9 +61,20 @@
 			  		@foreach($data as $row)
 						<tr>
 					  		<td>{{ $row->pasien->nama_pasien }}</td>
-					  		<td>{{ $row->pasien->nohp }}</td>
+					  		<td>{{ $row->dokter->nama }}</td>
+					  		<td>{{ $row->dokter->spesialisasi }}</td>
 					  		<td>{{ humanDate($row->tgl_pemeriksaan, true) }}</td>
-					  		<td>{{ App\Enum\ResepStatus::tryFrom($row->status)?->statusName() }}</td>
+					  		<td>
+					  			@if ($row->status === 1)
+					  				<span class="badge badge-success">
+					  					{{ App\Enum\ResepStatus::tryFrom($row->status)?->statusName() }}
+					  				</span>
+					  			@else
+					  				<span class="badge badge-primary">
+					  					{{ App\Enum\ResepStatus::tryFrom($row->status)?->statusName() }}
+					  				</span>
+					  			@endif
+					  		</td>
 					  		<td>
 					  			@if (myRole() == 'dokter' && $row->status == 0)
 					  				<a href="{{ route('hasil-pemeriksaan.edit', $row->id) }}" alt="Edit Pemeriksaan"><i class="far fa-edit"></i></a>

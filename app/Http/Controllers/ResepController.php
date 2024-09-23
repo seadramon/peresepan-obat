@@ -85,9 +85,8 @@ class ResepController extends Controller
      */
     public function show(string $id)
     {
-        // $auth = $this->obatRepository->authenticate();
-        // $medicines = $this->obatRepository->getListObat($auth->access_token);
-        $medicines = $this->obatRepository->getListObat("token");
+        $auth = $this->obatRepository->authenticate();
+        $medicines = $this->obatRepository->getListObat($auth->access_token);
         $medicines = $medicines['medicines'];
 
         $data = $this->hasilPemeriksaanRepository->getHasilPemeriksaanById($id);
@@ -114,8 +113,8 @@ class ResepController extends Controller
         $tglPeriksa = date('Y-m-d', strtotime($request->tgl_pemeriksaan));
         $price = 0;
 
-        // $auth = $this->obatRepository->authenticate();
-        $medicinePrices = $this->obatRepository->getHargaObat("token", $id);
+        $auth = $this->obatRepository->authenticate();
+        $medicinePrices = $this->obatRepository->getHargaObat($auth->access_token, $id);
         $medicinePrices = $medicinePrices['prices'];
         
         foreach ($medicinePrices as $row) {

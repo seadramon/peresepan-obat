@@ -35,17 +35,17 @@
 				  			<div class="col-md-6">
 				  				<strong>Nama Pasien : </strong>
 				                <p class="text-muted">
-				                  {{ $data->nama_pasien }}
+				                  {{ $data?->pasien?->nama_pasien }}
 				                </p>
 
 				                <strong>No.Handphone : </strong>
 				                <p class="text-muted">
-				                  {{ $data->nohp }}
+				                  {{ $data?->pasien?->nohp }}
 				                </p>
 
 				                <strong>Alamat : </strong>
 				                <p class="text-muted">
-				                  {{ $data->alamat }}
+				                  {{ $data?->pasien?->alamat }}
 				                </p>	
 				  			</div>
 				  		</div>

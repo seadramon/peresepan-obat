@@ -6,9 +6,6 @@ enum ResepStatus: int
 {
     case BARU = 0;
     case DILAYANI = 1;
-    case RESI_DICETAK = 2;
-    case TERBAYAR = 3;
-    case BATAL = 4;
 
     public function statusName(): string
     {
@@ -16,9 +13,6 @@ enum ResepStatus: int
         {
         	self::BARU => 'Baru',
     	    self::DILAYANI => 'Resep dilayani',
-    	    self::RESI_DICETAK => 'Resi dicetak',
-    	    self::TERBAYAR => 'Terbayar',
-    	    self::BATAL => 'Batal'
         };
     }
 

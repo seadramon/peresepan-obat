@@ -58,9 +58,7 @@ class HasilPemeriksaanController extends Controller
     {
         // Validasi
         $validator = Validator::make($request->all(), [
-            'nama_pasien' => 'required|string|max:255',
-            'nohp' => 'required|string|max:20',
-            'alamat' => 'required|string|max:255',
+            'pasien_id' => 'required',
             'tgl_pemeriksaan' => 'required',
             'hasil_pemeriksaan' => 'required',
             'resep' => 'required'
@@ -109,6 +107,7 @@ class HasilPemeriksaanController extends Controller
                 $tanda = $this->hasilPemeriksaanRepository->updateHasilPemeriksaan($request->id, $posts);
             } else {
                 $posts['dokter_id'] = \Auth::user()->account->id;
+
                 $tanda = $this->hasilPemeriksaanRepository->createHasilPemeriksaan($posts);
             }
 
@@ -138,9 +137,11 @@ class HasilPemeriksaanController extends Controller
     {
         $tandavitals = $this->tandaVitalRepository->getTandaVital();
 
+        $pasiens = $this->pasienRepository->getPasien();
+
         $data = $hasil_pemeriksaan;
 
-        return view('hasilpemeriksaan.create', compact('tandavitals', 'data'));
+        return view('hasilpemeriksaan.create', compact('tandavitals', 'data', 'pasiens'));
     }
 
     /**

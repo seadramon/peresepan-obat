@@ -14,6 +14,12 @@ use App\Repositories\ResepRepositoryInterface;
 use App\Repositories\ResepRepository;
 use App\Repositories\PasienRepositoryInterface;
 use App\Repositories\PasienRepository;
+use App\Repositories\DokterRepositoryInterface;
+use App\Repositories\DokterRepository;
+use App\Repositories\ApotekerRepositoryInterface;
+use App\Repositories\ApotekerRepository;
+use App\Repositories\LogRepositoryInterface;
+use App\Repositories\LogRepository;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -31,6 +37,12 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(ResepRepositoryInterface::class, ResepRepository::class);
 
         $this->app->bind(PasienRepositoryInterface::class, PasienRepository::class);
+
+        $this->app->bind(DokterRepositoryInterface::class, DokterRepository::class);
+
+        $this->app->bind(ApotekerRepositoryInterface::class, ApotekerRepository::class);
+        
+        $this->app->bind(LogRepositoryInterface::class, LogRepository::class);
     }
 
     /**

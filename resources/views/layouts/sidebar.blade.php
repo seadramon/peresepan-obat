@@ -30,6 +30,39 @@
 						</p>
 					</a>
 				</li>
+				@if (myRole() == 'admin')
+					<li class="nav-item {{ $parentActive == 'user' ? 'menu-open' : '' }}">
+			            <a href="#" class="nav-link {{ $parentActive == 'user' ? 'active' : '' }}">
+			              	<i class="nav-icon fas fa-user-friends"></i>
+			              	<p>
+			                	User
+			                	<i class="right fas fa-angle-left"></i>
+			              	</p>
+			            </a>
+			            <ul class="nav nav-treeview">
+			              	<li class="nav-item">
+			                	<a href="{{ route('dokter.index') }}" class="nav-link {{ $elementActive == 'dokter' ? 'active' : '' }}">
+			                  	<i class="far fa-circle nav-icon"></i>
+			                  	<p>Dokter</p>
+			                	</a>
+			              	</li>
+			              	<li class="nav-item">
+			                	<a href="{{ route('apoteker.index') }}" class="nav-link {{ $elementActive == 'apoteker' ? 'active' : '' }}">
+			                  	<i class="far fa-circle nav-icon"></i>
+			                  	<p>Apoteker</p>
+			                	</a>
+			              	</li>
+			            </ul>
+			        </li>
+					<li class="nav-item">
+						<a href="{{ route('log.index') }}" class="nav-link {{ $elementActive == 'log' ? 'active' : '' }}">
+							<i class="nav-icon fas fa-home"></i>
+							<p>
+								Aktivitas Log
+							</p>
+						</a>
+					</li>
+				@endif
 				@if (myRole() == 'dokter')
 					<li class="nav-item {{ $parentActive == 'master' ? 'menu-open' : '' }}">
 			            <a href="#" class="nav-link {{ $parentActive == 'master' ? 'active' : '' }}">
@@ -44,6 +77,12 @@
 			                	<a href="{{ route('tanda-vital.index') }}" class="nav-link {{ $elementActive == 'tanda-vital' ? 'active' : '' }}">
 			                  	<i class="far fa-circle nav-icon"></i>
 			                  	<p>Tanda Vital</p>
+			                	</a>
+			              	</li>
+			              	<li class="nav-item">
+			                	<a href="{{ route('pasien.index') }}" class="nav-link {{ $elementActive == 'pasien' ? 'active' : '' }}">
+			                  	<i class="far fa-circle nav-icon"></i>
+			                  	<p>Pasien</p>
 			                	</a>
 			              	</li>
 			            </ul>

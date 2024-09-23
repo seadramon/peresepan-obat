@@ -15,7 +15,7 @@ class HasilPemeriksaan extends Model
     protected $table = 'hasil_pemeriksaan';
 
     protected $fillable = [
-        'dokter_id', 'apoteker_id', 'nama_pasien', 'nohp', 'alamat', 'tgl_pemeriksaan', 'hasil_pemeriksaan', 'tanda_vital', 'resep', 'berkas', 'status'
+        'dokter_id', 'apoteker_id', 'pasien_id', 'tgl_pemeriksaan', 'hasil_pemeriksaan', 'tanda_vital', 'resep', 'berkas', 'status'
     ];
 
     public function dokter(): BelongsTo

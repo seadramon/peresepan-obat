@@ -63,19 +63,14 @@
             		<td>{{ humandate($data->tgl_pemeriksaan) }}</td>
             	</tr>
             	<tr>
-            		<td>No.RM</td>
-            		<td>:</td>
-            		<td></td>
-            	</tr>
-            	<tr>
             		<td>Nama Pasien</td>
             		<td>:</td>
-            		<td>{{ $data->nama_pasien }}</td>
+            		<td>{{ $data?->pasien?->nama_pasien }}</td>
             	</tr>
             	<tr>
             		<td>Alamat Pasien</td>
             		<td>:</td>
-            		<td>{{ $data->alamat }}</td>
+            		<td>{{ $data?->pasien?->alamat }}</td>
             	</tr>
             	<tr>
             		<td>Dokter</td>

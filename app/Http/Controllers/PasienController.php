@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Repositories\PasienRepositoryInterface;
+use App\Repositories\LogRepositoryInterface;
 use Session;
 use Validator;
 use Log;
@@ -11,10 +12,13 @@ use Log;
 class PasienController extends Controller
 {
     private $pasienRepository;
+    private $logRepository;
 
-    public function __construct(PasienRepositoryInterface $pasienRepository)
+    public function __construct(PasienRepositoryInterface $pasienRepository,
+        LogRepositoryInterface $logRepository)
     {
         $this->pasienRepository = $pasienRepository;
+        $this->logRepository = $logRepository;
     }
 
     /**
@@ -48,6 +52,12 @@ class PasienController extends Controller
 
         try {
             $tanda = $this->pasienRepository->createPasien($request->all());
+
+            $this->logRepository->createLog([
+                'user_id' => \Auth::user()->id,
+                'menu' => 'pasien',
+                'activity' => 'Tambah data pasien ' .$request->nama_pasien,
+            ]);
 
             Session::flash('success', 'Data berhasil disimpan');
 
@@ -91,6 +101,12 @@ class PasienController extends Controller
 
         try {
             $tanda = $this->pasienRepository->updatePasien($id, $request->except(['_method', '_token']));
+
+            $this->logRepository->createLog([
+                'user_id' => \Auth::user()->id,
+                'menu' => 'pasien',
+                'activity' => 'Update data pasien ' .$request->nama_pasien,
+            ]);
 
             Session::flash('success', 'Data berhasil disimpan');
 

@@ -12,5 +12,5 @@ class LogActivity extends Model
 
     protected $table = 'log_activity';
 
-    protected $fillable = ['menu', 'activity'];
+    protected $fillable = ['user_id', 'menu', 'activity'];
 }

@@ -59,7 +59,17 @@
 					  		<td>{{ $row->pasien->nama_pasien }}</td>
 					  		<td>{{ $row->pasien->nohp }}</td>
 					  		<td>{{ humanDate($row->tgl_pemeriksaan, true) }}</td>
-					  		<td>{{ App\Enum\ResepStatus::tryFrom($row->status)?->statusName() }}</td>
+					  		<td>
+					  			@if ($row->status === 1)
+					  				<span class="badge badge-success">
+					  					{{ App\Enum\ResepStatus::tryFrom($row->status)?->statusName() }}
+					  				</span>
+					  			@else
+					  				<span class="badge badge-primary">
+					  					{{ App\Enum\ResepStatus::tryFrom($row->status)?->statusName() }}
+					  				</span>
+					  			@endif
+					  		</td>
 					  		<td style="text-align: center;">
 					  			<a href="{{ route('resep.show', $row->id) }}" alt="Lihat Pemeriksaan"><i class="fas fa-eye"></i></a>&nbsp;
 					  			<a href="{{ route('resep.resi', $row->id) }}" target="_blank" alt="Cetak Resi"><i class="fas fa-file-pdf" style="color: #ff0000;"></i></a>

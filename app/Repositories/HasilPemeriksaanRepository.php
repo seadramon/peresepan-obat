@@ -10,7 +10,9 @@ class HasilPemeriksaanRepository implements HasilPemeriksaanRepositoryInterface
     public function getAllHasilPemeriksaan($limit, $search = null)
     {
         if (!empty($search)) {
-            $data = HasilPemeriksaan::where(DB::raw("LOWER(nama_pasien)"), 'like', '%'.strtolower($search).'%')
+            $data = HasilPemeriksaan::whereHas('pasien', function ($query) use($search){
+                    $query->where(DB::raw("LOWER(nama_pasien)"), 'like', '%'.strtolower($search).'%');
+                })
                 ->orderBy('created_at', 'asc')
                 ->paginate($limit);
         } else {
@@ -27,7 +29,9 @@ class HasilPemeriksaanRepository implements HasilPemeriksaanRepositoryInterface
 
         if (!empty($search)) {
             $data = HasilPemeriksaan::where('dokter_id', $dokterId)
-                ->where(DB::raw("LOWER(nama_pasien)"), 'like', '%'.strtolower($search).'%')
+                ->whereHas('pasien', function ($query) use($search){
+                    $query->where(DB::raw("LOWER(nama_pasien)"), 'like', '%'.strtolower($search).'%');
+                })
                 ->orderBy('created_at', 'desc')
                 ->paginate($limit);
         } else {

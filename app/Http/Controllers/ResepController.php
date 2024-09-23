@@ -9,6 +9,7 @@ use App\Repositories\ResepRepositoryInterface;
 use App\Models\HasilPemeriksaan;
 use App\Models\Resep;
 use Barryvdh\DomPDF\Facade\Pdf;
+use App\Repositories\LogRepositoryInterface;
 
 use DB;
 use Log;
@@ -26,11 +27,13 @@ class ResepController extends Controller
     public function __construct(HasilPemeriksaanRepositoryInterface $hasilPemeriksaanRepository, 
         ObatRepositoryInterface $obatRepository,
         ResepRepositoryInterface $resepRepository,
+        LogRepositoryInterface $logRepository
     )
     {
         $this->hasilPemeriksaanRepository = $hasilPemeriksaanRepository;
         $this->obatRepository = $obatRepository;
         $this->resepRepository = $resepRepository;
+        $this->logRepository = $logRepository;
     }
     /**
      * Display a listing of the resource.
@@ -64,6 +67,12 @@ class ResepController extends Controller
                 $this->hasilPemeriksaanRepository->updateHasilPemeriksaan($request->id, [
                     'apoteker_id' => \Auth::user()->account->id,
                     'status' => \App\Enum\ResepStatus::DILAYANI
+                ]);
+
+                $this->logRepository->createLog([
+                    'user_id' => \Auth::user()->id,
+                    'menu' => 'resep',
+                    'activity' => 'melayani pembuatan resep',
                 ]);
 
                 Session::flash('success', 'Data berhasil disimpan');

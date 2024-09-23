@@ -7,6 +7,7 @@ use App\Repositories\HasilPemeriksaanRepositoryInterface;
 use App\Repositories\TandaVitalRepositoryInterface;
 use App\Repositories\PasienRepositoryInterface;
 use App\Models\HasilPemeriksaan;
+use App\Repositories\LogRepositoryInterface;
 
 use DB;
 use Log;
@@ -23,12 +24,14 @@ class HasilPemeriksaanController extends Controller
 
     public function __construct(HasilPemeriksaanRepositoryInterface $hasilPemeriksaanRepository, 
         TandaVitalRepositoryInterface $tandaVitalRepository,
-        PasienRepositoryInterface $pasienRepository
+        PasienRepositoryInterface $pasienRepository,
+        LogRepositoryInterface $logRepository
     )
     {
         $this->hasilPemeriksaanRepository = $hasilPemeriksaanRepository;
         $this->tandaVitalRepository = $tandaVitalRepository;
         $this->pasienRepository = $pasienRepository;
+        $this->logRepository = $logRepository;
     }
 
     public function index(Request $request)
@@ -104,12 +107,20 @@ class HasilPemeriksaanController extends Controller
 
         try {
             if (!empty($request->id)) {
+                $mode = 'edit';
                 $tanda = $this->hasilPemeriksaanRepository->updateHasilPemeriksaan($request->id, $posts);
             } else {
+                $mode = 'tambah';
                 $posts['dokter_id'] = \Auth::user()->account->id;
 
                 $tanda = $this->hasilPemeriksaanRepository->createHasilPemeriksaan($posts);
             }
+
+            $this->logRepository->createLog([
+                'user_id' => \Auth::user()->id,
+                'menu' => 'hasil pemeriksaan',
+                'activity' => $mode.' data pemeriksaan',
+            ]);
 
             Session::flash('success', 'Data berhasil disimpan');
 
